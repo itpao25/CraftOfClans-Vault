@@ -6,6 +6,7 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import it.itpao25.craftofclansvault.handler.Economy_CraftOfClans;
+import it.itpao25.craftofclansvault.handler.Vault_Register;
 import it.itpao25.craftofclansvault.handler.Vault_hook;
 
 public class CocVault extends JavaPlugin {
@@ -29,6 +30,7 @@ public class CocVault extends JavaPlugin {
 		if (isVault) {
 			getServer().getServicesManager().register(net.milkbowl.vault.economy.Economy.class, new Economy_CraftOfClans(), getInstance(), ServicePriority.Highest);
 			Bukkit.getConsoleSender().sendMessage(CocVault.translate("&c[&6CraftOfClans Vault&c] &cVault detected"));
+			new Vault_Register();
 		} else {
 			Bukkit.getConsoleSender().sendMessage(CocVault.translate("&c[&6CraftOfClans Vault&c] &cVault is not installed on this server. Please install it and retry."));
 			this.setEnabled(false);

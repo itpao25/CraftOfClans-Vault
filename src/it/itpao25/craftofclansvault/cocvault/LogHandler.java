@@ -14,7 +14,7 @@ public class LogHandler {
 	public static final String ANSI_PURPLE = "\u001B[35m";
 	public static final String ANSI_CYAN = "\u001B[36m";
 	public static final String ANSI_WHITE = "\u001B[37m";
-	public static final String PREFIX = ANSI_RED + "[" + ANSI_RESET + ANSI_YELLOW + "CraftOfClans Vault " + ANSI_RESET + ANSI_RED + "] " + ANSI_RESET;
+	public static final String PREFIX = ANSI_RED + "[" + ANSI_RESET + ANSI_YELLOW + "CraftOfClans Vault" + ANSI_RESET + ANSI_RED + "] " + ANSI_RESET;
 	public static Logger log = Bukkit.getLogger();
 
 	public static void log(String msg) {
