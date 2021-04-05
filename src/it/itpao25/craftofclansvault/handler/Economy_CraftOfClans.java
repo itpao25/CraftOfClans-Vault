@@ -91,15 +91,15 @@ public class Economy_CraftOfClans implements Economy {
 		}
 		return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, "Successfully withdraw gems to player.");
 	}
-
+	
 	@Override
 	public String format(double arg0) {
-		return arg0 + "";
+		return CocVault.showNumero((int) arg0);
 	}
-
+	
 	@Override
 	public int fractionalDigits() {
-		return 0;
+		return 2;
 	}
 
 	@Override

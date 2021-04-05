@@ -1,6 +1,6 @@
 name: CraftOfClansVault
 main: it.itpao25.craftofclansvault.cocvault.CocVault
-version: 1.1
+version: 1.2
 description: Extension for CraftOfClans plugin
 author: itpao25
 depend: [Vault]

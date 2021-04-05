@@ -1,5 +1,9 @@
 package it.itpao25.craftofclansvault.cocvault;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.ServicePriority;
@@ -72,6 +76,14 @@ public class CocVault extends JavaPlugin {
 
 	public static String translate(String str) {
 		return ChatColor.translateAlternateColorCodes('&', str);
+	}
+	
+	public static String showNumero(Number amount) {
+		NumberFormat format = DecimalFormat.getInstance();
+		format.setRoundingMode(RoundingMode.FLOOR);
+		format.setMinimumFractionDigits(0);
+		format.setMaximumFractionDigits(2);
+		return format.format(amount);
 	}
 
 	@SuppressWarnings("unused")
