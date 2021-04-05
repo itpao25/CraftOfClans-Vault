@@ -6,6 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import it.itpao25.craftofclans.api.PlayerStore;
+import it.itpao25.craftofclansvault.cocvault.CocVault;
+import it.itpao25.craftofclansvault.cocvault.CocVault.Valute;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -24,25 +26,70 @@ public class Economy_CraftOfClans implements Economy {
 
 	@Override
 	public String currencyNamePlural() {
-		return "Gemme";
+		return CocVault.Valuta_chosen.toString().toLowerCase();
 	}
-
+	
 	@Override
 	public String currencyNameSingular() {
-		return "Gemma";
+		return CocVault.Valuta_chosen.toString().toLowerCase();
 	}
-
+	
 	@Override
 	public EconomyResponse depositPlayer(String player, double amount) {
-		if (!getPlayer(player).addGems((int) amount)) {
-			return new EconomyResponse(-1, -1, EconomyResponse.ResponseType.FAILURE, "Error deposit gems to player");
+
+		boolean add_result = true;
+
+		if (CocVault.Valuta_chosen.equals(Valute.GEMS)) {
+			if (!getPlayer(player).addGems((int) amount)) {
+				add_result = false;
+			}
+		} else if (CocVault.Valuta_chosen.equals(Valute.GOLD)) {
+			if (!getPlayer(player).addGold((int) amount)) {
+				add_result = false;
+			}
+		} else if (CocVault.Valuta_chosen.equals(Valute.ELIXIR)) {
+			if (!getPlayer(player).addElixir((int) amount)) {
+				add_result = false;
+			}
+		} else if (CocVault.Valuta_chosen.equals(Valute.DARK_ELIXIR)) {
+			if (!getPlayer(player).addDarkElixir((int) amount)) {
+				add_result = false;
+			}
 		}
-		return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, "Successfully deposit gems to player.");
+
+		if (!add_result) {
+			return new EconomyResponse(-1, -1, EconomyResponse.ResponseType.FAILURE, "Error deposit to player");
+		}
+		return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, "Successfully deposit to player.");
 	}
 
 	@Override
-	public EconomyResponse depositPlayer(String player, String world, double amount) {
-		return depositPlayer(player, amount);
+	public EconomyResponse withdrawPlayer(String player, double amount) {
+
+		boolean remove_result = true;
+
+		if (CocVault.Valuta_chosen.equals(Valute.GEMS)) {
+			if (!getPlayer(player).removeGems((int) amount)) {
+				remove_result = false;
+			}
+		} else if (CocVault.Valuta_chosen.equals(Valute.GOLD)) {
+			if (!getPlayer(player).removeGold((int) amount)) {
+				remove_result = false;
+			}
+		} else if (CocVault.Valuta_chosen.equals(Valute.ELIXIR)) {
+			if (!getPlayer(player).removeElixir((int) amount)) {
+				remove_result = false;
+			}
+		} else if (CocVault.Valuta_chosen.equals(Valute.DARK_ELIXIR)) {
+			if (!getPlayer(player).removeDarkElixir((int) amount)) {
+				remove_result = false;
+			}
+		}
+
+		if (!remove_result) {
+			return new EconomyResponse(-1, -1, EconomyResponse.ResponseType.FAILURE, "Error withdraw gems to player");
+		}
+		return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, "Successfully withdraw gems to player.");
 	}
 
 	@Override
@@ -57,9 +104,25 @@ public class Economy_CraftOfClans implements Economy {
 
 	@Override
 	public double getBalance(String player) {
-		int gems = getPlayer(player).getGems();
+		int gems = 0;
+		
+		if (CocVault.Valuta_chosen.equals(Valute.GEMS)) {
+			gems = getPlayer(player).getGems();
+		} else if (CocVault.Valuta_chosen.equals(Valute.GOLD)) {
+			gems = getPlayer(player).getGold();
+		} else if (CocVault.Valuta_chosen.equals(Valute.ELIXIR)) {
+			gems = getPlayer(player).getElixir();
+		} else if (CocVault.Valuta_chosen.equals(Valute.DARK_ELIXIR)) {
+			gems = getPlayer(player).getDarkElixir();
+		}
+		
 		Double dnum = Double.valueOf(gems);
 		return dnum;
+	}
+	
+	@Override
+	public EconomyResponse depositPlayer(String player, String world, double amount) {
+		return depositPlayer(player, amount);
 	}
 
 	@Override
@@ -94,19 +157,7 @@ public class Economy_CraftOfClans implements Economy {
 
 	@Override
 	public boolean isEnabled() {
-		/*
-		 * boolean valut_is_enable = CraftOfClansC.getBoolean("vault.enable"); return
-		 * valut_is_enable;
-		 */
 		return true;
-	}
-
-	@Override
-	public EconomyResponse withdrawPlayer(String player, double amount) {
-		if (!getPlayer(player).removeGems((int) amount)) {
-			return new EconomyResponse(-1, -1, EconomyResponse.ResponseType.FAILURE, "Error withdraw gems to player");
-		}
-		return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, "Successfully withdraw gems to player.");
 	}
 
 	@Override
