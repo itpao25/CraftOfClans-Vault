@@ -40,19 +40,19 @@ public class Economy_CraftOfClans implements Economy {
 		boolean add_result = true;
 
 		if (CocVault.Valuta_chosen.equals(Valute.GEMS)) {
-			if (!getPlayer(player).addGems((int) amount)) {
+			if (!getPlayer(player).addGems(amount)) {
 				add_result = false;
 			}
 		} else if (CocVault.Valuta_chosen.equals(Valute.GOLD)) {
-			if (!getPlayer(player).addGold((int) amount)) {
+			if (!getPlayer(player).addGold(amount)) {
 				add_result = false;
 			}
 		} else if (CocVault.Valuta_chosen.equals(Valute.ELIXIR)) {
-			if (!getPlayer(player).addElixir((int) amount)) {
+			if (!getPlayer(player).addElixir(amount)) {
 				add_result = false;
 			}
 		} else if (CocVault.Valuta_chosen.equals(Valute.DARK_ELIXIR)) {
-			if (!getPlayer(player).addDarkElixir((int) amount)) {
+			if (!getPlayer(player).addDarkElixir(amount)) {
 				add_result = false;
 			}
 		}
@@ -69,19 +69,19 @@ public class Economy_CraftOfClans implements Economy {
 		boolean remove_result = true;
 
 		if (CocVault.Valuta_chosen.equals(Valute.GEMS)) {
-			if (!getPlayer(player).removeGems((int) amount)) {
+			if (!getPlayer(player).removeGems(amount)) {
 				remove_result = false;
 			}
 		} else if (CocVault.Valuta_chosen.equals(Valute.GOLD)) {
-			if (!getPlayer(player).removeGold((int) amount)) {
+			if (!getPlayer(player).removeGold(amount)) {
 				remove_result = false;
 			}
 		} else if (CocVault.Valuta_chosen.equals(Valute.ELIXIR)) {
-			if (!getPlayer(player).removeElixir((int) amount)) {
+			if (!getPlayer(player).removeElixir(amount)) {
 				remove_result = false;
 			}
 		} else if (CocVault.Valuta_chosen.equals(Valute.DARK_ELIXIR)) {
-			if (!getPlayer(player).removeDarkElixir((int) amount)) {
+			if (!getPlayer(player).removeDarkElixir(amount)) {
 				remove_result = false;
 			}
 		}
@@ -94,7 +94,7 @@ public class Economy_CraftOfClans implements Economy {
 	
 	@Override
 	public String format(double arg0) {
-		return CocVault.showNumero((int) arg0);
+		return CocVault.showNumero(arg0);
 	}
 	
 	@Override
@@ -104,7 +104,7 @@ public class Economy_CraftOfClans implements Economy {
 
 	@Override
 	public double getBalance(String player) {
-		int gems = 0;
+		double gems = 0;
 		
 		if (CocVault.Valuta_chosen.equals(Valute.GEMS)) {
 			gems = getPlayer(player).getGems();
@@ -115,9 +115,7 @@ public class Economy_CraftOfClans implements Economy {
 		} else if (CocVault.Valuta_chosen.equals(Valute.DARK_ELIXIR)) {
 			gems = getPlayer(player).getDarkElixir();
 		}
-		
-		Double dnum = Double.valueOf(gems);
-		return dnum;
+		return gems;
 	}
 	
 	@Override
@@ -137,7 +135,7 @@ public class Economy_CraftOfClans implements Economy {
 
 	@Override
 	public boolean has(String player, double amount) {
-		return getPlayer(player).hasGems((int) amount);
+		return getPlayer(player).hasGems(amount);
 	}
 
 	@Override
